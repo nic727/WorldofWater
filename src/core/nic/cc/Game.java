@@ -10,7 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Game extends BasicGameState {
 	Image game1, lod;
-	int lodX, lodY;
+	int lodX, lodY, game1X, game1Y;
 	
 	public void init(GameContainer c, StateBasedGame game)throws SlickException{
 		lodX = 100;
@@ -23,19 +23,25 @@ public class Game extends BasicGameState {
 		Input input = c.getInput();
 		if(input.isKeyDown(input.KEY_A) || input.isKeyDown(input.KEY_LEFT)){
 			lodX = lodX -1;
+			
 		}
 		if(input.isKeyDown(input.KEY_D) || input.isKeyDown(input.KEY_RIGHT)){
 			lodX = lodX +1;
+				if(lodX>300){
+					game1X = game1X -1;
+			
+			}
 		}
 		if(input.isKeyDown(input.KEY_W) || input.isKeyDown(input.KEY_UP)){
 			lodY = lodY -1;
 		}
 		if(input.isKeyDown(input.KEY_S) || input.isKeyDown(input.KEY_DOWN)){
 			lodY = lodY +1;
+		
 		}
 	}
 	public void render(GameContainer c, StateBasedGame game, Graphics g)throws SlickException{
-		game1.draw();
+		game1.draw(game1X,game1Y);
 		lod.draw(lodX, lodY);
 		Input input = c.getInput();
 		
