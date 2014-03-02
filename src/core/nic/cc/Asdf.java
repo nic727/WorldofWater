@@ -43,9 +43,9 @@ public class Asdf extends StateBasedGame{
 	
 	public void initStatesList(GameContainer c) throws SlickException{
 		addState(new Menu());
-		//addState(new Game();
+		addState(new Game());
 		addState(new Options());
-		//addState(new Exit();
+		//addState(new Exit());
 	
 	}
 	public void ChangeState(){

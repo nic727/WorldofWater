@@ -32,9 +32,7 @@ public class Options extends BasicGameState {
 			}
 		
 	}
-	public int GetID(){
-		return 1;
-}
+	
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub

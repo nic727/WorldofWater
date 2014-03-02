@@ -1,6 +1,7 @@
 package core.nic.cc;
 
 import org.lwjgl.input.Mouse;
+import org.lwjgl.util.Timer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -26,7 +27,7 @@ public class Menu extends BasicGameState{
 		
 		//g.setColor(Color.green);
 		//g.drawString("Why hello there", 250, 180);
-		g.fillRect(242, 242, 150, 32);
+		//g.fillRect(242, 242, 150, 32);
 		
 		
 	}
@@ -35,9 +36,10 @@ public class Menu extends BasicGameState{
 		int xpos = Mouse.getX();
 		int ypos = Mouse.getY();
 		
+		
 		if(input.isKeyDown(Input.KEY_ENTER)){
-
-				game.enterState(1);
+				
+				game.enterState(2);
 			
 		
 		}
