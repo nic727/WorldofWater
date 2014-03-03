@@ -24,7 +24,7 @@ public class Game extends BasicGameState {
 		Input input = c.getInput();
 		if(input.isKeyDown(input.KEY_A) || input.isKeyDown(input.KEY_LEFT)){
 			lodX = lodX -1;
-			if(lodX<100 && game1X>0){
+			if(lodX<150 && game1X>0){
 				game1X = game1X +1;
 				lodX = lodX +1;
 			}
@@ -68,6 +68,6 @@ public class Game extends BasicGameState {
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
-		return 2;
+		return 1;
 	}
 }
