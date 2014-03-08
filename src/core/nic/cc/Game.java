@@ -40,7 +40,7 @@ public class Game extends BasicGameState {
 				lodX = lodX -1;
 				ipositionX = ipositionX-1;
 			
-				if(lodX<150 && game1X<640 && game1X>0){
+				if(ipositionX>lodX ){
 				game1X = game1X +1;
 				lodX = lodX +1;
 			}
@@ -48,20 +48,20 @@ public class Game extends BasicGameState {
 			
 		}
 		if(input.isKeyDown(input.KEY_D) || input.isKeyDown(input.KEY_RIGHT)){
-			if(lodX + 1 != 300){
+
 			lodX = lodX +1;
 			ipositionX = ipositionX +1;
-				if(lodX>200){
+				if(lodX>150){
 					game1X = game1X -1;
 					lodX = lodX -1;
 				}
 			
 			}
-		}
+		
 		if(input.isKeyDown(input.KEY_W) || input.isKeyDown(input.KEY_UP)){
 			lodY = lodY -1;
 			ipositionY = ipositionY -1;
-			if(lodY<50 && game1Y>0){
+			if(ipositionY>lodY){
 				game1Y = game1Y +1;
 				lodY = lodY +1;
 			}
@@ -69,7 +69,7 @@ public class Game extends BasicGameState {
 		if(input.isKeyDown(input.KEY_S) || input.isKeyDown(input.KEY_DOWN)){
 			lodY = lodY +1;
 			ipositionY = ipositionY +1;
-			if(lodY>150){
+			if(lodY>50){
 				game1Y = game1Y-1;
 				lodY = lodY -1;
 			}
