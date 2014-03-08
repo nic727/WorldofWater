@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.Log;
@@ -17,9 +18,12 @@ public class Menu extends BasicGameState{
 	private static AppGameContainer app;
 	Image menu, buttonplay;
 	int active = 0;
+	
 	public void init(GameContainer c, StateBasedGame game)throws SlickException{
 		menu = new Image("src/core/nic/cc/nic/wow.jpg");
 		buttonplay = new Image("src/core/nic/cc/nic/buttonplay.png");
+		
+		
 	}
 	public void render(GameContainer c, StateBasedGame game, Graphics g)throws SlickException{
 		menu.draw();

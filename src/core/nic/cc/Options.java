@@ -21,11 +21,8 @@ public class Options extends BasicGameState {
 	public void render(GameContainer c, StateBasedGame game, Graphics g)throws SlickException{
 		Input input = c.getInput();
 		
-		g.drawString("supp", 100, 100);
-		g.fillOval(75, 100, 100, 100);
+		
 		options.draw();
-		int xpos = Mouse.getX();
-		int ypos = Mouse.getY();
 		
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 				game.enterState(0);
