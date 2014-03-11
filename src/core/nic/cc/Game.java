@@ -13,22 +13,23 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Game extends BasicGameState {
-	Image game1, lod, waterbackground;
+	Image game1, lod, lodleft,waterbackground;
 	int lodX, lodY, game1X, game1Y, ipositionX, ipositionY;
 	Shape rect;
-	boolean collision;
+	boolean movementL;
 	
-	public void init(GameContainer c, StateBasedGame game)throws SlickException{
+	public void init(GameContainer c, StateBasedGame game)throws SlickException {
 		lodX = -100;
-		
+		movementL = false;
 		ipositionX = -100;
 		ipositionY = 0;
 		//-150 x = 0
 		lodY = 0;
+	
 		game1 = new Image("src/core/nic/cc/nic/game.png");
 		lod = new Image("src/core/nic/cc/nic/lod1.png");
 		waterbackground = new Image("src/core/nic/cc/nic/water.jpg");
-		
+		lodleft = new Image("src/core/nic/cc/nic/lodleft.png");
 	}
 	public void update(GameContainer c, StateBasedGame game,int delta)throws SlickException{
 		Input input = c.getInput();
@@ -39,6 +40,7 @@ public class Game extends BasicGameState {
 				
 				lodX = lodX -1;
 				ipositionX = ipositionX-1;
+				movementL = true;
 			
 				if(ipositionX>lodX ){
 				game1X = game1X +1;
@@ -87,7 +89,13 @@ public class Game extends BasicGameState {
 	//}
 	public void render(GameContainer c, StateBasedGame game, Graphics g)throws SlickException{
 		waterbackground.draw();
-		lod.draw(lodX, lodY);
+		if(movementL ==true){
+			lod.destroy();
+			lodleft.draw(lodX, lodY);
+		}if(movementL == false){
+		
+			lod.draw(lodX, lodY);
+		}
 		game1.draw(game1X,game1Y);
 		//g.fillRect(300, 200, 100, 100);
 		
@@ -98,9 +106,11 @@ public class Game extends BasicGameState {
 			
 		}
 		
+			
+		}
 		
 		
-	}
+	
 	
 	@Override
 	public int getID() {
