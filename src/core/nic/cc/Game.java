@@ -73,7 +73,7 @@ public class Game extends BasicGameState {
 				if(ipositionY-1 != recY+50){
 					lodY = lodY - 1;
 					ipositionY = ipositionY - 1;
-					collision = false;
+					
 					
 				}
 					if (ipositionY > lodY) {
@@ -90,6 +90,7 @@ public class Game extends BasicGameState {
 				lodY = lodY - 1;
 			}
 		}
+		
 		System.out.println(ipositionX + "," + collision);
 
 	}
@@ -103,13 +104,10 @@ public class Game extends BasicGameState {
 		}
 		if (movementL == false) {
 
-			lod.draw(lodX, lodY);
-			if(collision = true){
-				hitlod.draw(lodX,lodY);
-			}
+			lod.draw(lodX, lodY);	
 		}
 		
-		bublina.draw(bubX,bubY);
+		//bublina.draw(bubX,bubY);
 		game1.draw(game1X, game1Y);
 
 		Input input = c.getInput();
