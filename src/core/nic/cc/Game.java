@@ -46,12 +46,11 @@ public class Game extends BasicGameState {
 		lodleft = new Image("src/core/nic/cc/nic/lodleft.png");
 	}
 
-	@SuppressWarnings("static-access")
 	public void update(GameContainer c, StateBasedGame game, int delta)
 			throws SlickException {
 		Input input = c.getInput();
 
-		if (input.isKeyDown(input.KEY_A) || input.isKeyDown(input.KEY_LEFT)) {
+		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
 			if (!collisionx.isOpaque(ipositionX, ipositionY + 14)) {
 				lodX = lodX - 1;
 				ipositionX = ipositionX - 1;
@@ -66,7 +65,7 @@ public class Game extends BasicGameState {
 			}
 
 		}
-		if (input.isKeyDown(input.KEY_D) || input.isKeyDown(input.KEY_RIGHT)) {
+		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
 			if (!collisionx.isOpaque(ipositionX + 49, ipositionY + 14)) {
 				lodX = lodX + 1;
 				ipositionX = ipositionX + 1;
@@ -85,7 +84,7 @@ public class Game extends BasicGameState {
 
 		}
 
-		if (input.isKeyDown(input.KEY_W) || input.isKeyDown(input.KEY_UP)) {
+		if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) {
 			if (!collisionx.isOpaque(ipositionX + (49 / 2), ipositionY)) {
 				lodY = lodY - 1;
 				ipositionY = ipositionY - 1;
@@ -98,7 +97,7 @@ public class Game extends BasicGameState {
 				}
 			}
 		}
-		if (input.isKeyDown(input.KEY_S) || input.isKeyDown(input.KEY_DOWN)) {
+		if (input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) {
 			if (!collisionx.isOpaque(ipositionX + (49 / 2), ipositionY + 28)) {
 				lodY = lodY + 1;
 				ipositionY = ipositionY + 1;
@@ -117,7 +116,6 @@ public class Game extends BasicGameState {
 
 	}
 
-	@SuppressWarnings("static-access")
 	public void render(GameContainer c, StateBasedGame game, Graphics g)
 			throws SlickException {
 		waterbackground.draw();
@@ -144,7 +142,7 @@ public class Game extends BasicGameState {
 		g.drawString(PlayerOx + "oxygen", 10, 10);
 		Input input = c.getInput();
 
-		if (input.isKeyDown(input.KEY_ESCAPE)) {
+		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			game.enterState(0);
 
 		}
