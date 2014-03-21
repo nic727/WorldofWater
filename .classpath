@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="lib/lib/slick-examples.jar"/>
 	<classpathentry kind="lib" path="lib/lib/slick.jar" sourcepath="lib/src"/>
 	<classpathentry kind="lib" path="lib/lib/tinylinepp.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jbox2d-library"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
