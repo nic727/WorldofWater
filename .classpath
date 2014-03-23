@@ -20,6 +20,10 @@
 	<classpathentry kind="lib" path="lib/lib/slick-examples.jar"/>
 	<classpathentry kind="lib" path="lib/lib/slick.jar" sourcepath="lib/src"/>
 	<classpathentry kind="lib" path="lib/lib/tinylinepp.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jbox2d-library"/>
+	<classpathentry kind="lib" path="lib/jbox2d-library-2.2.1.1.jar" sourcepath="lib/jbox2d-library-2.2.1.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Copy%20of%20BombermanGame/lib/jbox2d-library-2.2.1.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
