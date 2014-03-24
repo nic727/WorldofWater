@@ -9,16 +9,35 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Options extends BasicGameState {
-	Image options;
-	
+	Image options, buttonplay;
+	int active;
 	public void init(GameContainer c, StateBasedGame game)throws SlickException{
 		options = new Image("src/core/nic/cc/nic/options.jpg");
+		buttonplay = new Image("src/core/nic/cc/nic/buttonplay.png");
 	}
 	public void update(GameContainer c, StateBasedGame game, int delta)throws SlickException{
+		
+		Input input = c.getInput();
+		
 		
 	}
 	public void render(GameContainer c, StateBasedGame game, Graphics g)throws SlickException{
 		Input input = c.getInput();
+		if(input.isKeyDown(Input.KEY_A)){
+			active = 1;
+			
+		}
+		
+		if(active == 1){
+			buttonplay.draw();
+			if(input.isKeyDown(Input.KEY_S)){
+				active = 2;
+				
+			}
+			
+		}
+		if(active == 2){
+			buttonplay.draw(0, 63);
 		
 		
 		options.draw();

@@ -1,5 +1,7 @@
 package core.nic.cc;
 
+
+
 import org.jbox2d.dynamics.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -22,6 +24,9 @@ public class Game extends BasicGameState {
 
 	public void init(GameContainer c, StateBasedGame game)
 			throws SlickException {
+		
+		//b2vec2 gravity(0.0f, -10.0f);
+		//b2World world(gravity); 
 		lodX = 100;
 		movementL = false;
 		collision = false;
@@ -59,7 +64,7 @@ public class Game extends BasicGameState {
 				lodX = lodX - 1;
 				ipositionX = ipositionX - 1;
 				movementL = true;
-				PlayerOx = (float) (PlayerOx +0.5);
+				PlayerOx = (float) (PlayerOx +0.05);
 
 				if (ipositionX > lodX) {
 					game1X = game1X + 1;
@@ -71,12 +76,12 @@ public class Game extends BasicGameState {
 
 		}
 		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
-			if (!collisionx.isOpaque(ipositionX + 49, ipositionY + 14)) {
+			if (!collisionx.isOpaque((ipositionX + 49), ipositionY + 14)) {
 				lodX = lodX + 1;
 				ipositionX = ipositionX + 1;
 				movementL = false;
 				collision = false;
-				PlayerOx = (float) (PlayerOx -0.5);
+				PlayerOx = (float)(PlayerOx -0.05);
 				if (lodX > 250) {
 					game1X = game1X - 1;
 					lodX = lodX - 1;
@@ -99,6 +104,7 @@ public class Game extends BasicGameState {
 				if (ipositionY > lodY) {
 					game1Y = game1Y + 1;
 					lodY = lodY + 1;
+					
 					bubY = bubY + 1;
 					oxgY = oxgY + 1;
 				}
@@ -121,7 +127,7 @@ public class Game extends BasicGameState {
 		}
 		
 		
-		System.out.println(collision + " , " + ipositionX);
+		System.out.println(Math.round(PlayerOx) + " , " + PlayerOx);
 
 	}
 
@@ -150,9 +156,10 @@ public class Game extends BasicGameState {
 		//oxg.draw(oxgX, oxgY);
 		if(PlayerOx <= 0){
 			dead.draw();
+			
 		}
 
-		g.drawString(PlayerOx + "oxygen", 10, 60);
+		g.drawString(Math.round(PlayerOx) + "oxygen", 10, 60);
 		Input input = c.getInput();
 
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
