@@ -13,12 +13,12 @@ public class CollisionHandler {
 
 	}
 
-	public boolean isOpaque(int x, int y) {
+	public boolean isOpaque(int b, int y) {
 		image = game.game1;
 		
-		color = image.getColor(x, y);
+		color = image.getColor(b, y);
 		int alpha = color.getAlpha();
-		System.out.println("[" + x + "," + y + "] " + color.a + ", " + color.r
+		System.out.println("[" + b + "," + y + "] " + color.a + ", " + color.r
 				+ ", " + color.g + ", " + color.b);
 		if (alpha < 1) {
 			return false;
