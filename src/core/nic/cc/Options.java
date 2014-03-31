@@ -18,7 +18,23 @@ public class Options extends BasicGameState {
 	public void update(GameContainer c, StateBasedGame game, int delta)throws SlickException{
 		
 		Input input = c.getInput();
+		if(active == 1){
+			if(input.isKeyDown(Input.KEY_ENTER)){
+				
+				game.enterState(1);
+			}
 		
+		}
+		if(active == 2){
+			if(input.isKeyDown(Input.KEY_ENTER)){
+				game.enterState(2);
+			}
+		}
+		if(active == 3){
+			if(input.isKeyDown(Input.KEY_ENTER)){
+				game.enterState(0);
+			}
+		}
 		
 	}
 	public void render(GameContainer c, StateBasedGame game, Graphics g)throws SlickException{
@@ -44,7 +60,8 @@ public class Options extends BasicGameState {
 		
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 				game.enterState(0);
-			}
+		}
+		}
 		
 	}
 	

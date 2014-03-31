@@ -18,8 +18,8 @@ public class CollisionHandler {
 		
 		color = image.getColor(b, y);
 		int alpha = color.getAlpha();
-		System.out.println("[" + b + "," + y + "] " + color.a + ", " + color.r
-				+ ", " + color.g + ", " + color.b);
+		//System.out.println("[" + b + "," + y + "] " + color.a + ", " + color.r
+			//	+ ", " + color.g + ", " + color.b);
 		if (alpha < 1) {
 			return false;
 		}
