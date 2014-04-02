@@ -19,6 +19,7 @@ public class Game extends BasicGameState {
 	float PlayerOx;
 	Array lineD;
 	Vector2f gravity;
+	Objects BoxDown;
 	
 
 	boolean movementL, collision, camera,posouvani;
@@ -48,6 +49,7 @@ public class Game extends BasicGameState {
 		PlayerOx = 100;
 		PlayerEl = 100;
 		gold = 0;
+		BoxDown = new Objects(this);
 		
 		gravity = new Vector2f(boxX+27/2,boxY);
 
@@ -197,14 +199,15 @@ public class Game extends BasicGameState {
 				hitlod.draw(lodX, lodY);
 			}
 		}
-		boxD.draw(boxX,boxY);
+		BoxDown.draw(200,200,100,100);
+		boxD.draw();
 		
 
 		//bublina.draw(bubX, bubY);
 		//boxD.draw(recX, recY);
 
 		 bublina.draw(bubX,bubY);
-		game1.draw(game1X, game1Y);
+		//game1.draw(game1X, game1Y);
 		//oxg.draw(oxgX, oxgY);
 		if(ipositionX>=1714 && ipositionY<=103){
 			g.drawString("chest",300,300);
@@ -213,7 +216,9 @@ public class Game extends BasicGameState {
 		if(PlayerOx <= 0){
 			dead.draw();
 			
+			
 		}
+	
 		if(ipositionX <=1524 && ipositionX>=1384 && ipositionY<=464 && ipositionY>410){
 			dead.draw();
 		}
