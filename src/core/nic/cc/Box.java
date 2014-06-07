@@ -4,9 +4,9 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 
 
-public class Box {
+public class Box extends Crate {
 	Game game;
-	Shape line;
+	
 	
 	public Box(Game gam){
 		game = gam;
@@ -14,12 +14,7 @@ public class Box {
 	}
 
 	
-	//public Shape SegLine(float grad,int  x1,int y1,int x2,int y2){
-		
-		//grad = (x1-x2)/(y1-y2);
-		
-		//return line;
-	//}
+
 
 
 }

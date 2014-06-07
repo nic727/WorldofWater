@@ -15,34 +15,31 @@ public class Objects {
 		game = gam;
 		
 	}
-	public Rectangle BoxDown(float x,float y, float width, float height){
-		height = 29;
-		width = 29;
-		yp = game.boxYposition+29;
-		xp = game.boxXposition;
-		z = game.boxXposition;
-		vzdalenost = yp-game.boxXposition;
-		BoxDown(x,y, 29,29);
-		for(yp=game.boxYposition; yp<=100; yp++ ){
+	public int BoxDown(float x,float y){
+		int height = 27;
+		int width = 27;
+		yp = game.boxY+27;
+		xp = game.boxX;
+	//	z = game.boxXposition;
+		vzdalenost = yp-game.boxY;
+		
+
+		for(yp=game.boxY; yp<=100; yp++ ){
 			if(!collisionx.isOpaque((xp), (yp+1))){
 				yp = yp+1;
-				System.out.println(yp);
+				
 		}
 			else{
 				 BoxDown.transform(Transform.createRotateTransform((float) Math.cos(vzdalenost/height), xp, yp ));
 			}
 		}
+		System.out.println(yp);
 		
-		return BoxDown;
+		return xp;
 	}
-	public Rectangle BoxUp(float x,float y, float width, float height){
-		
-		
-		return BoxUp;
-	}
-	public void draw(int i, int j, int k, int l) {
+	
+	
 		// TODO Auto-generated method stub
 		
 	}
 
-}
