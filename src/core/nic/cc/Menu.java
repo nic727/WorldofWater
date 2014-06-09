@@ -11,17 +11,22 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Menu extends BasicGameState{
 	private static AppGameContainer app;
-	Image menu, buttonplay;
+	Image menu, buttonplay, buttons, podklad,optionsglow, exitglow;
 	int active = 0;
 	
 	public void init(GameContainer c, StateBasedGame game)throws SlickException{
-		menu = new Image("src/core/nic/cc/nic/wow.jpg");
-		buttonplay = new Image("src/core/nic/cc/nic/buttonplay.png");
+		
+		buttonplay = new Image("src/core/nic/cc/nic/playglow2.png");
+		optionsglow = new Image("src/core/nic/cc/nic/optionsglow2.png");
+		exitglow = new Image("src/core/nic/cc/nic/exitglow2.png");
+		buttons = new Image("src/core/nic/cc/nic/menu2buttons.png");
+		podklad = new Image("src/core/nic/cc/nic/menu2.png");
 		
 		
 	}
 	public void render(GameContainer c, StateBasedGame game, Graphics g)throws SlickException{
-		menu.draw();
+		podklad.draw();
+		buttons.draw();
 		Input input = c.getInput();
 		if(input.isKeyDown(Input.KEY_A)){
 			active = 1;
@@ -37,13 +42,13 @@ public class Menu extends BasicGameState{
 			
 		}
 		if(active == 2){
-			buttonplay.draw(0, 63);
+			optionsglow.draw();
 			if(input.isKeyDown(Input.KEY_D)){
 				active = 3;
 			}
 		}
 		if(active == 3){
-			buttonplay.draw(0, 135);
+			exitglow.draw();
 		}
 		
 		
