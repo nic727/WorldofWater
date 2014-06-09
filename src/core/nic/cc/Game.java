@@ -141,7 +141,7 @@ public class Game extends BasicGameState {
 					lodX = lodX - 1;
 					ipositionX = ipositionX - 1;
 					movementL = true;
-					PlayerOx = (float) (PlayerOx + 0.05);
+					//PlayerOx = (float) (PlayerOx + 0.05);
 
 					if (ipositionX > lodX) {
 						game1X = game1X + 1;
@@ -188,7 +188,7 @@ public class Game extends BasicGameState {
 					ipositionX = ipositionX + 1;
 					movementL = false;
 					collision = false;
-					PlayerOx = (float) (PlayerOx - 0.05);
+					//PlayerOx = (float) (PlayerOx - 0.05);
 					// boxXposition = boxXposition +1;
 					if (lodX > 250) {
 						game1X = game1X - 1;
@@ -336,7 +336,7 @@ public class Game extends BasicGameState {
 		}
 		// if(chest[1].x >= ){}
 		notes(c);
-
+		PlayerOx = (float) (PlayerOx - 0.05);
 		System.out.println(allnotesN);
 
 	}
@@ -385,6 +385,7 @@ public class Game extends BasicGameState {
 
 		
 		ballss.draw(bubX, bubY);
+		ballss.draw(bubX+400, bubY+25);
 		game1.draw(game1X, game1Y);
 		// oxg.draw(oxgX, oxgY);
 		if (ipositionX >= 200 && ipositionY <= 300) {
