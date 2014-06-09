@@ -30,8 +30,8 @@ public class Game extends BasicGameState {
 	boolean movementL, collision, camera, posouvani, hit, chestEmpty, notesOn,
 			ControlsOn, noteFind, optionsOn, oxygen;
 	CollisionHandler collisionx;
-	SpriteSheet ballspritesheet;
-	Animation ballss;
+	SpriteSheet ballspritesheet, lifeBar;
+	Animation ballss, lifeBarAnimation;
 
 	public void init(GameContainer c, StateBasedGame game)
 			throws SlickException {
@@ -63,8 +63,11 @@ public class Game extends BasicGameState {
 		QuitGameglow = new Image("src/core/nic/cc/nic/QuitGameglow.png");
 		CircleSprite = new Image("src/core/nic/cc/nic/CircleSpriteSheet.png");
 		
-		ballspritesheet = new SpriteSheet("src/core/nic/cc/nic1/bubblesOx.png", 57, 87);
+		ballspritesheet = new SpriteSheet("src/core/nic/cc/nic1/bubblesOx.png", (113/2), 87);
 		ballss = new Animation(ballspritesheet,60 );
+		
+		lifeBar = new SpriteSheet("src/core/nic/cc/nic1/healthbar.png", 126,18);
+		lifeBarAnimation = new Animation(lifeBar, 100);
 
 	}
 
@@ -404,6 +407,37 @@ public class Game extends BasicGameState {
 			//notes2.draw(notes[1].x, notes[1].y);
 			//noteFind = false;
 		}
+		if(life<=1000 && life>=900){
+			lifeBar.getSprite(0, 0).draw(10,120);
+		}
+		if(life<900 && life>=800){
+			lifeBar.getSprite(0, 1).draw(10,120);
+		}
+		if(life<800 && life>=700){
+			lifeBar.getSprite(0, 2).draw(10,120);
+		}
+		if(life<700 && life>=600){
+			lifeBar.getSprite(0, 3).draw(10,120);
+		}
+		if(life<600 && life>=500){
+			lifeBar.getSprite(0, 4).draw(10,120);
+		}
+		if(life<500 && life>=400){
+			lifeBar.getSprite(0, 5).draw(10,120);
+		}
+		if(life<400 && life>=300){
+			lifeBar.getSprite(0, 6).draw(10,120);
+		}
+		if(life<300 && life>=200){
+			lifeBar.getSprite(0, 7).draw(10,120);
+		}
+		if(life<200 && life>=100){
+			lifeBar.getSprite(0, 8).draw(10,120);
+		}
+		if(life<100 && life>=0){
+			lifeBar.getSprite(0, 9).draw(10,120);
+		}
+		
 		g.drawString("oxygen: " + Math.round(PlayerOx), 10, 60);
 		g.drawString("life: " + Math.round(life), 10, 100);
 		if (noteFind == true) {
