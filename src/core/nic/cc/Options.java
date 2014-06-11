@@ -40,31 +40,33 @@ public class Options extends BasicGameState {
 	public void render(GameContainer c, StateBasedGame game, Graphics g)throws SlickException{
 		Input input = c.getInput();
 		options.draw();
-		if(input.isKeyDown(Input.KEY_A)){
-			active = 1;
-			
-		}
-		
-		if(active == 1){
-			buttonplay.draw();
-			if(input.isKeyDown(Input.KEY_S)){
-				active = 2;
-				
-			}
-			
-		}
-		if(active == 2){
-			buttonplay.draw(0, 63);
-		
-		
-		
+//		if(input.isKeyDown(Input.KEY_A)){
+//			active = 1;
+//			
+//		}
+//		
+//		if(active == 1){
+//			buttonplay.draw();
+//			if(input.isKeyDown(Input.KEY_S)){
+//				active = 2;
+//				
+//			}
+//			
+//		}
+//		if(active == 2){
+//			buttonplay.draw(0, 63);
+//		
+//		}
+//		
 		
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 				game.enterState(0);
 		}
 		}
 		
-	}
+		
+		
+	
 	
 	@Override
 	public int getID() {

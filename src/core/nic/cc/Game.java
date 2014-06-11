@@ -17,7 +17,7 @@ public class Game extends BasicGameState {
 	Image game1, lod, lodleft, waterbackground, bublina, hitlod, oxg, boxD,
 			dead, truhla, notes1, notes2, note12, allnotes, allnotesButton1,CircleSprite,
 			playAgain, buttonReturnglow, QuitGame, playAgainglow, QuitGameglow,
-			buttonReturn, utesy, gameOptions;
+			buttonReturn, utesy, gameOptions, coin;
 	int lodX, lodY, game1X, game1Y, ipositionX, ipositionY, bubX, bubY, oxgX,
 			oxgY, PlayerEl, boxXposition, boxYposition, gold, speed, boxX,
 			boxY, xn, x0, allnotesN, n, activeButton;
@@ -25,12 +25,12 @@ public class Game extends BasicGameState {
 
 	Objects BoxDown;
 
-	Crate[] chest, box, notes;
+	Crate[] chest, box, notes, coins;
 
 	boolean movementL, collision, camera, posouvani, hit, chestEmpty, notesOn,
-			ControlsOn, noteFind, optionsOn, oxygen;
+			ControlsOn, noteFind, optionsOn, oxygen, coinThere;
 	CollisionHandler collisionx;
-	SpriteSheet ballspritesheet, lifeBar;
+	SpriteSheet ballspritesheet, lifeBar, oxbar;
 	Animation ballss, lifeBarAnimation;
 
 	public void init(GameContainer c, StateBasedGame game)
@@ -38,6 +38,7 @@ public class Game extends BasicGameState {
 
 		restart();
 
+		coin = new Image("src/core/nic/cc/nic/coin.png");
 		buttonReturnglow = new Image("src/core/nic/cc/nic/buttonReturnglow.png");
 		buttonReturn = new Image("src/core/nic/cc/nic/buttonReturn.png");
 		gameOptions = new Image("src/core/nic/cc/nic/gameOptions.png");
@@ -69,6 +70,7 @@ public class Game extends BasicGameState {
 		lifeBar = new SpriteSheet("src/core/nic/cc/nic1/healthbar.png", 126,18);
 		lifeBarAnimation = new Animation(lifeBar, 100);
 
+		oxbar = new SpriteSheet("src/core/nic/cc/nic1/oxbar.png", 126,18);
 	}
 
 	void restart() {
@@ -105,6 +107,7 @@ public class Game extends BasicGameState {
 		PlayerOx = 100;
 		PlayerEl = 100;
 		gold = 0;
+		coinThere = true;
 		BoxDown = new Objects(this);
 
 		chest = new Crate[10];
@@ -128,9 +131,18 @@ public class Game extends BasicGameState {
 		notes[0].x = 395;
 		notes[0].y = 365;
 		notes[1] = new Crate();
-		notes[1].x = 200;
-		notes[1].y = 270;
+		notes[1].x = 545;
+		notes[1].y = 265;
 		System.out.println("cus");
+		
+		coins = new Crate[20];
+		coins[0] = new Crate();
+		coins[0].x = 400;
+		coins[0].y = 300;
+		coins[1] = new Crate();
+		coins[1].x = 350;
+		coins[1].y = 200;
+
 	}
 
 	public void update(GameContainer c, StateBasedGame game, int delta)
@@ -157,6 +169,7 @@ public class Game extends BasicGameState {
 							notes[n].x = notes[n].x + 1;
 
 							chest[n].x = chest[n].x + 1;
+							coins[n].x = coins[n].x +1;
 						}
 						boxX = boxX + 1;
 					}
@@ -173,6 +186,7 @@ public class Game extends BasicGameState {
 				}else{
 					oxygen = false;
 				}
+				
 				if (ipositionX == boxXposition + 29 && lodY >= boxY - 17
 						&& lodY <= boxY + 27) {
 					boxX = boxX - 1;
@@ -201,7 +215,7 @@ public class Game extends BasicGameState {
 						for (int n = 0; n <= 1; n++) {
 
 							chest[n].x = chest[n].x - 1;
-
+							coins[n].x = coins[n].x -1;
 							box[n].x = box[n].x - 1;
 							notes[n].x = notes[n].x - 1;
 						}
@@ -218,6 +232,7 @@ public class Game extends BasicGameState {
 				}else{
 					oxygen = false;
 				}
+				
 
 				if (lodX == box[1].x - 50 && lodY >= box[1].x - 17
 						&& lodY <= box[1].y + 27) {
@@ -246,6 +261,7 @@ public class Game extends BasicGameState {
 
 							box[n].y = box[n].y + 1;
 							notes[n].y = notes[n].y + 1;
+							coins[n].y = coins[n].y +1;
 						}
 					}
 
@@ -261,6 +277,7 @@ public class Game extends BasicGameState {
 				if (collisionx.isHit(ipositionX + (49 / 2), ipositionY)) {
 					collision = true;
 				}
+				
 				if (ipositionY == boxYposition - 17 && lodX >= box[1].y - 29
 						&& lodX <= box[1].x - 50) {
 					box[1].y = box[1].y - 1;
@@ -286,7 +303,7 @@ public class Game extends BasicGameState {
 							chest[n].y = chest[n].y - 1;
 
 							box[n].y = box[n].y - 1;
-
+							coins[n].y = coins[n].y -1;
 							notes[n].y = notes[n].y - 1;
 						}
 
@@ -339,11 +356,21 @@ public class Game extends BasicGameState {
 		}
 		// if(chest[1].x >= ){}
 		notes(c);
+		
+//		for(int i = 0; i<=11; i++){
+//			
+//			
+//			System.out.println(ballss.getImage(i));
+		//}
+		
 		PlayerOx = (float) (PlayerOx - 0.05);
-		System.out.println(allnotesN);
-
+		
+	
+		
 	}
 	void notes(GameContainer c){
+ 
+		
 		
 		Input input = c.getInput();
 		
@@ -355,19 +382,49 @@ public class Game extends BasicGameState {
 
 		if ((ipositionX >= 350 && ipositionX < 416)
 				&& (ipositionY >= 343 && ipositionY <= 379)) {
-			noteFind = true;
+			allnotesN = 1;
 
-		} else {
-			noteFind = false;
 		}
-		if (noteFind == true && allnotesN < 1) {
-			allnotesN = allnotesN + 1;
+		if ((ipositionX >= 500 && ipositionX < 566)
+				&& (ipositionY >= 243 && ipositionY <= 279)) {
+			allnotesN =2;
 		}
-		if (input.isKeyDown(Input.KEY_DOWN)){
-			activeButton = 1;}
+		
+	}	
+//		if ((ipositionX >= 350 && ipositionX < 416)
+//				&& (ipositionY >= 343 && ipositionY <= 379)) {
+//			allnotesN = 1;
+//
+//		} else {
+//			noteFind = false;
+//		}
+		
+//		if ((ipositionX >= 500 && ipositionX < 566)
+//				&& (ipositionY >= 243 && ipositionY <= 279)) {
+//			noteFind = true;
+//		}else{
+//			noteFind = false;
+//		}
+			
+//		if (noteFind == true && allnotesN < 1) {
+//			allnotesN = allnotesN + 1;
+//		}
+//		if (noteFind == true && allnotesN > 1 && allnotesN<2) {
+//			allnotesN = allnotesN + 1;
+//		}
+//		
+//		if (input.isKeyDown(Input.KEY_DOWN)){
+//			activeButton = 1;}
+//		
+//		
+//		
+//	}
+	
+	void chest(GameContainer c){
 		
 	}
-
+	
+	
 	public void render(GameContainer c, StateBasedGame game, Graphics g)
 			throws SlickException {
 		waterbackground.draw((float) (game1X - 0.5), (float) (game1Y - 0.5));
@@ -399,14 +456,51 @@ public class Game extends BasicGameState {
 			}
 		}
 		truhla.draw(chest[0].x, chest[0].y);
-		if (allnotesN != 1) {
-			notes1.draw(notes[0].x, notes[0].y);
-			noteFind = false;
+		
+		notes(c,game,g);
+		 
+		spriteSheets(c, game, g);
+		
+		
+		g.drawString("oxygen: " + Math.round(PlayerOx), 10, 60);
+		g.drawString("life: " + Math.round(life), 10, 100);
+		if (noteFind == true) {
+			note12.draw();
+
 		}
-		if (allnotesN != 2) {
-			//notes2.draw(notes[1].x, notes[1].y);
-			//noteFind = false;
+		if(oxygen ==true){
+			g.drawString("jeeeej new oxygen", 10, 130);
 		}
+
+		Input input = c.getInput();
+		
+		
+
+		if (notesOn == true) {
+			allnotes.draw();
+			if (allnotesN >= 1) {
+				allnotesButton1.draw(150, 180);
+			}
+
+		}
+		
+		options(c,game,g);
+		deadScreen(c,game,g);
+		
+
+	}
+	
+
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+	
+	
+	
+	void spriteSheets(GameContainer c, StateBasedGame game, Graphics g){
+
 		if(life<=1000 && life>=900){
 			lifeBar.getSprite(0, 0).draw(10,120);
 		}
@@ -438,25 +532,77 @@ public class Game extends BasicGameState {
 			lifeBar.getSprite(0, 9).draw(10,120);
 		}
 		
-		g.drawString("oxygen: " + Math.round(PlayerOx), 10, 60);
-		g.drawString("life: " + Math.round(life), 10, 100);
-		if (noteFind == true) {
-			note12.draw();
-
+		
+		if(PlayerOx<=101 && PlayerOx>=90){
+			oxbar.getSprite(0, 0).draw(10,80);
 		}
-		if(oxygen ==true){
-			g.drawString("jeeeej new oxygen", 10, 130);
+		if(PlayerOx<90 && PlayerOx>=80){
+			oxbar.getSprite(0, 1).draw(10,80);
+		}
+		if(PlayerOx<80 && PlayerOx>=70){
+			oxbar.getSprite(0, 2).draw(10,80);
+		}
+		if(PlayerOx<70 && PlayerOx>=60){
+			oxbar.getSprite(0, 3).draw(10,80);
+		}
+		if(PlayerOx<60 && PlayerOx>=50){
+			oxbar.getSprite(0, 4).draw(10,80);
+		}
+		if(PlayerOx<50 && PlayerOx>=40){
+			oxbar.getSprite(0, 5).draw(10,80);
+		}
+		if(PlayerOx<40 && PlayerOx>=30){
+			oxbar.getSprite(0, 6).draw(10,80);
+		}
+		if(PlayerOx<30 && PlayerOx>=20){
+			oxbar.getSprite(0, 7).draw(10,80);
+		}
+		if(PlayerOx<20 && PlayerOx>=10){
+			oxbar.getSprite(0, 8).draw(10,80);
+		}
+		if(PlayerOx<10 && PlayerOx>=0){
+			oxbar.getSprite(0, 9).draw(10,80);
 		}
 
+	}
+	
+	void options(GameContainer c, StateBasedGame game, Graphics g){
+		
 		Input input = c.getInput();
-
-		if (notesOn == true) {
-			allnotes.draw();
-			if (allnotesN >= 1) {
-				allnotesButton1.draw(150, 180);
+		
+		if (optionsOn == true) {
+			ControlsOn = false;
+			gameOptions.draw();
+			buttonReturn.draw(240, 200);
+			if (activeButton ==1) {
+				buttonReturnglow.draw(240, 200);
+				if(input.isKeyDown(Input.KEY_A)){
+					game.enterState(0);
+				}
+			
 			}
 
+		} else {
+			optionsOn = false;
 		}
+
+	}
+	
+	void notes(GameContainer c, StateBasedGame game, Graphics g){
+		Input input = c.getInput();
+		if (allnotesN == 1) {
+			notes1.draw(notes[0].x, notes[0].y);
+		
+			}
+		if(allnotesN !=2){
+			notes1.draw(notes[1].x, notes[1].y);
+		}
+		}
+		
+	
+	void deadScreen(GameContainer c, StateBasedGame game, Graphics g){
+		Input input = c.getInput();
+		
 		if (life <= 0) {
 			dead.draw();
 			playAgain.draw(200, 240);
@@ -491,32 +637,5 @@ public class Game extends BasicGameState {
 
 		}
 
-		if (optionsOn == true) {
-			ControlsOn = false;
-			gameOptions.draw();
-			buttonReturn.draw(240, 200);
-			if (activeButton ==1) {
-				buttonReturnglow.draw(240, 200);
-				if(input.isKeyDown(Input.KEY_ENTER)){
-					game.enterState(1);
-				}
-			}
-
-		} else {
-			optionsOn = false;
-		}
-		
-		
-		
-		// restart();
-		// game.enterState(0);
-
-	}
-	
-
-	@Override
-	public int getID() {
-		// TODO Auto-generated method stub
-		return 1;
 	}
 }
