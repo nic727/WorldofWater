@@ -26,12 +26,14 @@ public class Game extends BasicGameState {
 	Objects BoxDown;
 
 	Crate[] chest, box, notes, coins;
-
+	NoteThere[] noteFind;
+	
 	boolean movementL, collision, camera, posouvani, hit, chestEmpty, notesOn,
-			ControlsOn, noteFind, optionsOn, oxygen, coinThere;
+			ControlsOn, optionsOn, oxygen, coinThere, animation;
+	
 	CollisionHandler collisionx;
-	SpriteSheet ballspritesheet, lifeBar, oxbar;
-	Animation ballss, lifeBarAnimation;
+	SpriteSheet ballspritesheet, lifeBar, oxbar, zacatek;
+	Animation ballss, lifeBarAnimation, animZacatek;
 
 	public void init(GameContainer c, StateBasedGame game)
 			throws SlickException {
@@ -59,7 +61,7 @@ public class Game extends BasicGameState {
 		notes2 = new Image("src/core/nic/cc/nic/notes.png");
 		note12 = new Image("src/core/nic/cc/nic/note1a.png");
 		allnotes = new Image("src/core/nic/cc/nic/allnotes.png");
-		allnotesButton1 = new Image("src/core/nic/cc/nic/allnotesbutton1.png");
+		allnotesButton1 = new Image("src/core/nic/cc/nic/note.png");
 		QuitGame = new Image("src/core/nic/cc/nic/QuitGame.png");
 		QuitGameglow = new Image("src/core/nic/cc/nic/QuitGameglow.png");
 		CircleSprite = new Image("src/core/nic/cc/nic/CircleSpriteSheet.png");
@@ -67,13 +69,21 @@ public class Game extends BasicGameState {
 		ballspritesheet = new SpriteSheet("src/core/nic/cc/nic1/bubblesOx.png", (113/2), 87);
 		ballss = new Animation(ballspritesheet,60 );
 		
+		
 		lifeBar = new SpriteSheet("src/core/nic/cc/nic1/healthbar.png", 126,18);
-		lifeBarAnimation = new Animation(lifeBar, 100);
+		lifeBarAnimation = new Animation(lifeBar, 100); 
 
 		oxbar = new SpriteSheet("src/core/nic/cc/nic1/oxbar.png", 126,18);
+		
+		zacatek = new SpriteSheet("src/core/nic/cc/nic1/zacatek.png", 643, 484);
+		animZacatek = new Animation(zacatek, 100);
+		animZacatek.setLooping(animation);
+		
 	}
 
 	void restart() {
+		
+		animation = false;
 		
 		oxygen = false;
 		optionsOn = false;
@@ -90,7 +100,7 @@ public class Game extends BasicGameState {
 		movementL = false;
 		collision = false;
 		camera = false;
-		noteFind = false;
+		
 		ipositionX = 100;
 		allnotesN = 0;
 		ipositionY = 200;
@@ -112,27 +122,38 @@ public class Game extends BasicGameState {
 
 		chest = new Crate[10];
 		chest[0] = new Crate();
-		chest[0].x = 1750;
-		chest[0].y = 90;
+		chest[0].x = 400;
+		chest[0].y = 200;
 		chest[1] = new Crate();
 		chest[1].x = 1500;
 		chest[1].y = 400;
+		chest[2] = new Crate();
+		chest[2].x = 1500;
+		chest[2].y = 400;
+
 
 		box = new Crate[20];
 		box[0] = new Crate();
-		box[0].x = 500;
-		box[0].y = 270;
+		box[0].x = 585;
+		box[0].y = 1082;
 		box[1] = new Crate();
 		box[1].x = 600;
 		box[1].y = 300;
+		box[2] = new Crate();
+		box[2].x = 600;
+		box[2].y = 300;
+
 
 		notes = new Crate[10];
 		notes[0] = new Crate();
 		notes[0].x = 395;
 		notes[0].y = 365;
 		notes[1] = new Crate();
-		notes[1].x = 545;
-		notes[1].y = 265;
+		notes[1].x = 975; 
+		notes[1].y = 428;
+		notes[2] = new Crate();
+		notes[2].x=2200;
+		notes[2].y = 100;
 		System.out.println("cus");
 		
 		coins = new Crate[20];
@@ -142,6 +163,23 @@ public class Game extends BasicGameState {
 		coins[1] = new Crate();
 		coins[1].x = 350;
 		coins[1].y = 200;
+		coins[2] = new Crate();
+		coins[2].x = 350;
+		coins[2].y = 200;
+
+		
+		noteFind = new NoteThere[4];
+		noteFind[0] = new NoteThere(); 
+		noteFind[0].n = false;
+		noteFind[1] = new NoteThere(); 
+		noteFind[1].n=false;
+		noteFind[2] = new NoteThere(); 
+		noteFind[2].n=false;
+		
+		noteFind[0].c = false;
+		noteFind[1].c = false;
+		noteFind[2].c = false;
+		
 
 	}
 
@@ -164,10 +202,10 @@ public class Game extends BasicGameState {
 						bubX = bubX + 1;
 						oxgX = oxgX + 1;
 
-						for (int n = 0; n <= 1; n++) {
+						for (int n = 0; n <= 2; n++) {
 
 							notes[n].x = notes[n].x + 1;
-
+							box[n].x = box[n].x +1;
 							chest[n].x = chest[n].x + 1;
 							coins[n].x = coins[n].x +1;
 						}
@@ -212,7 +250,7 @@ public class Game extends BasicGameState {
 						lodX = lodX - 1;
 						oxgX = oxgX - 1;
 						bubX = bubX - 1;
-						for (int n = 0; n <= 1; n++) {
+						for (int n = 0; n <= 2; n++) {
 
 							chest[n].x = chest[n].x - 1;
 							coins[n].x = coins[n].x -1;
@@ -257,11 +295,12 @@ public class Game extends BasicGameState {
 						bubY = bubY + 1;
 						oxgY = oxgY + 1;
 
-						for (int n = 0; n <= 1; n++) {
+						for (int n = 0; n <= 2; n++) {
 
 							box[n].y = box[n].y + 1;
 							notes[n].y = notes[n].y + 1;
 							coins[n].y = coins[n].y +1;
+							chest[n].y = chest[n].y +1;
 						}
 					}
 
@@ -299,12 +338,13 @@ public class Game extends BasicGameState {
 						bubY = bubY - 1;
 						oxgY = oxgY - 1;
 
-						for (int n = 0; n <= 1; n++) {
+						for (int n = 0; n <= 2; n++) {
 							chest[n].y = chest[n].y - 1;
 
 							box[n].y = box[n].y - 1;
 							coins[n].y = coins[n].y -1;
 							notes[n].y = notes[n].y - 1;
+							chest[n].y = chest[n].y -1;
 						}
 
 					}
@@ -365,9 +405,10 @@ public class Game extends BasicGameState {
 		
 		PlayerOx = (float) (PlayerOx - 0.05);
 		
-	
+	System.out.println(ipositionX+ "  " + ipositionY);
 		
 	}
+	
 	void notes(GameContainer c){
  
 		
@@ -382,45 +423,38 @@ public class Game extends BasicGameState {
 
 		if ((ipositionX >= 350 && ipositionX < 416)
 				&& (ipositionY >= 343 && ipositionY <= 379)) {
-			allnotesN = 1;
-
-		}
-		if ((ipositionX >= 500 && ipositionX < 566)
-				&& (ipositionY >= 243 && ipositionY <= 279)) {
-			allnotesN =2;
-		}
-		
-	}	
-//		if ((ipositionX >= 350 && ipositionX < 416)
-//				&& (ipositionY >= 343 && ipositionY <= 379)) {
-//			allnotesN = 1;
-//
-//		} else {
-//			noteFind = false;
-//		}
-		
-//		if ((ipositionX >= 500 && ipositionX < 566)
-//				&& (ipositionY >= 243 && ipositionY <= 279)) {
-//			noteFind = true;
-//		}else{
-//			noteFind = false;
-//		}
+			noteFind[0].n = true;
 			
-//		if (noteFind == true && allnotesN < 1) {
-//			allnotesN = allnotesN + 1;
-//		}
-//		if (noteFind == true && allnotesN > 1 && allnotesN<2) {
-//			allnotesN = allnotesN + 1;
-//		}
-//		
-//		if (input.isKeyDown(Input.KEY_DOWN)){
-//			activeButton = 1;}
-//		
-//		
-//		
-//	}
+		}
+		
+		if ((ipositionX >= 930 && ipositionX < 996)//930, 996
+				&& (ipositionY >= 450 && ipositionY <= 486)) {//450, 486
+			noteFind[1].n=true;
+			
+			
+			}
+		if ((ipositionX >= 2175 && ipositionX <2241 )
+				&& (ipositionY >= 78 && ipositionY <= 114)) {
+			noteFind[2].n=true;
+			
+			
+			}		
+		
+	
+		if (input.isKeyDown(Input.KEY_DOWN)){
+			activeButton = 1;}
+		
+		
+		
+	}
 	
 	void chest(GameContainer c){
+		
+		if ((ipositionX >= 100)
+				&& (ipositionY >= 100)) {
+			noteFind[0].c = true;
+			
+		}
 		
 	}
 	
@@ -433,7 +467,7 @@ public class Game extends BasicGameState {
 			lodleft.draw(lodX, lodY);
 		}
 		if ((movementL == false)) {
-			// || (!collisionx.isOpaque(ipositionX, ipositionY))) {
+			
 
 			lod.draw(lodX, lodY);
 			if (collision == true) {
@@ -441,13 +475,13 @@ public class Game extends BasicGameState {
 			}
 		}
 
-		//boxD.draw(box[0].x, box[0].y);
+		boxD.draw(box[0].x, box[0].y);
 
 		
 		ballss.draw(bubX, bubY);
 		ballss.draw(bubX+400, bubY+25);
 		game1.draw(game1X, game1Y);
-		// oxg.draw(oxgX, oxgY);
+		
 		if (ipositionX >= 200 && ipositionY <= 300) {
 			g.drawString("chest", 300, 300);
 			if (gold <= 1) {
@@ -455,8 +489,9 @@ public class Game extends BasicGameState {
 				g.drawString("gold: " + (gold), 10, 150);
 			}
 		}
-		truhla.draw(chest[0].x, chest[0].y);
-		
+//		if(noteFind[0].c = false){
+//		truhla.draw(chest[0].x, chest[0].y);
+//		}
 		notes(c,game,g);
 		 
 		spriteSheets(c, game, g);
@@ -464,28 +499,22 @@ public class Game extends BasicGameState {
 		
 		g.drawString("oxygen: " + Math.round(PlayerOx), 10, 60);
 		g.drawString("life: " + Math.round(life), 10, 100);
-		if (noteFind == true) {
-			note12.draw();
+		// if(allnotesN == 1) {
+			//note12.draw();
 
-		}
+		//}
 		if(oxygen ==true){
 			g.drawString("jeeeej new oxygen", 10, 130);
 		}
 
 		Input input = c.getInput();
 		
-		
-
-		if (notesOn == true) {
-			allnotes.draw();
-			if (allnotesN >= 1) {
-				allnotesButton1.draw(150, 180);
-			}
-
-		}
-		
 		options(c,game,g);
 		deadScreen(c,game,g);
+		animZacatek.draw();
+		if(noteFind[0].c == false){
+			truhla.draw();
+		}
 		
 
 	}
@@ -496,8 +525,6 @@ public class Game extends BasicGameState {
 		// TODO Auto-generated method stub
 		return 1;
 	}
-	
-	
 	
 	void spriteSheets(GameContainer c, StateBasedGame game, Graphics g){
 
@@ -590,16 +617,34 @@ public class Game extends BasicGameState {
 	
 	void notes(GameContainer c, StateBasedGame game, Graphics g){
 		Input input = c.getInput();
-		if (allnotesN == 1) {
+		if (noteFind[0].n==false) {
 			notes1.draw(notes[0].x, notes[0].y);
+			
 		
 			}
-		if(allnotesN !=2){
+		if(noteFind[1].n==false){
 			notes1.draw(notes[1].x, notes[1].y);
 		}
+		if(noteFind[2].n==false){
+			notes1.draw(notes[2].x, notes[2].y);
 		}
 		
-	
+		
+		if (notesOn == true) {
+			allnotes.draw();
+			if(noteFind[0].n ==true){
+					allnotesButton1.draw(150, 180);
+					g.drawString("note1",notes[0].x-100, notes[0].y-10);}
+				if(noteFind[1].n ==true){
+					allnotesButton1.draw(150, 230);
+				if(noteFind[2].n ==true){
+					allnotesButton1.draw(150, 280);}
+			}
+			
+			}
+		
+		}
+		
 	void deadScreen(GameContainer c, StateBasedGame game, Graphics g){
 		Input input = c.getInput();
 		

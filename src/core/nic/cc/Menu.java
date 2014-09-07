@@ -20,7 +20,7 @@ public class Menu extends BasicGameState{
 		optionsglow = new Image("src/core/nic/cc/nic/optionsglow2.png");
 		exitglow = new Image("src/core/nic/cc/nic/exitglow2.png");
 		buttons = new Image("src/core/nic/cc/nic/menu2buttons.png");
-		podklad = new Image("src/core/nic/cc/nic/menu2.png");
+		podklad = new Image("src/core/nic/cc/nic/wowmenu.png");
 		
 		
 	}
