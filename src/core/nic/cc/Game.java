@@ -1,7 +1,5 @@
 package core.nic.cc;
 
-import java.sql.Array;
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -9,34 +7,30 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Game extends BasicGameState {
-	Image game1, lod, lodleft, waterbackground, bublina, hitlod, oxg, boxD,
-			dead, truhla, notes1, notes2, note12, allnotes, allnotesButton1,CircleSprite,
-			playAgain, buttonReturnglow, QuitGame, playAgainglow, QuitGameglow,
+	Image game1, lod, lodleft, waterbackground, bublina, hitlod, oxg, boxD, dead, truhla, notes1, notes2, note12,
+			allnotes, allnotesButton1, CircleSprite, playAgain, buttonReturnglow, QuitGame, playAgainglow, QuitGameglow,
 			buttonReturn, utesy, gameOptions, coin;
-	int lodX, lodY, game1X, game1Y, ipositionX, ipositionY, bubX, bubY, oxgX,
-			oxgY, PlayerEl, boxXposition, boxYposition, gold, speed, boxX,
-			boxY, xn, x0, allnotesN, n, activeButton;
+	int lodX, lodY, game1X, game1Y, ipositionX, ipositionY, bubX, bubY, oxgX, oxgY, PlayerEl, boxXposition,
+			boxYposition, gold, speed, boxX, boxY, xn, x0, allnotesN, n, activeButton, tab_pressed;
 	float PlayerOx, life;
 
 	Objects BoxDown;
 
 	Crate[] chest, box, notes, coins;
 	NoteThere[] noteFind;
-	
-	boolean movementL, collision, camera, posouvani, hit, chestEmpty, notesOn,
-			ControlsOn, optionsOn, oxygen, coinThere, animation;
-	
+
+	boolean movementL, collision, camera, posouvani, hit, chestEmpty, notesOn, ControlsOn, optionsOn, oxygen, coinThere,
+			animation;
+
 	CollisionHandler collisionx;
 	SpriteSheet ballspritesheet, lifeBar, oxbar, zacatek;
 	Animation ballss, lifeBarAnimation, animZacatek;
 
-	public void init(GameContainer c, StateBasedGame game)
-			throws SlickException {
+	public void init(GameContainer c, StateBasedGame game) throws SlickException {
 
 		restart();
 
@@ -65,26 +59,25 @@ public class Game extends BasicGameState {
 		QuitGame = new Image("src/core/nic/cc/nic/QuitGame.png");
 		QuitGameglow = new Image("src/core/nic/cc/nic/QuitGameglow.png");
 		CircleSprite = new Image("src/core/nic/cc/nic/CircleSpriteSheet.png");
-		
-		ballspritesheet = new SpriteSheet("src/core/nic/cc/nic1/bubblesOx.png", (113/2), 87);
-		ballss = new Animation(ballspritesheet,60 );
-		
-		
-		lifeBar = new SpriteSheet("src/core/nic/cc/nic1/healthbar.png", 126,18);
-		lifeBarAnimation = new Animation(lifeBar, 100); 
 
-		oxbar = new SpriteSheet("src/core/nic/cc/nic1/oxbar.png", 126,18);
-		
+		ballspritesheet = new SpriteSheet("src/core/nic/cc/nic1/bubblesOx.png", (113 / 2), 87);
+		ballss = new Animation(ballspritesheet, 60);
+
+		lifeBar = new SpriteSheet("src/core/nic/cc/nic1/healthbar.png", 126, 18);
+		lifeBarAnimation = new Animation(lifeBar, 100);
+
+		oxbar = new SpriteSheet("src/core/nic/cc/nic1/oxbar.png", 126, 18);
+
 		zacatek = new SpriteSheet("src/core/nic/cc/nic1/zacatek.png", 643, 484);
 		animZacatek = new Animation(zacatek, 100);
 		animZacatek.setLooping(animation);
-		
+
 	}
 
 	void restart() {
-		
+
 		animation = false;
-		
+
 		oxygen = false;
 		optionsOn = false;
 		game1X = 0;
@@ -100,7 +93,7 @@ public class Game extends BasicGameState {
 		movementL = false;
 		collision = false;
 		camera = false;
-		
+
 		ipositionX = 100;
 		allnotesN = 0;
 		ipositionY = 200;
@@ -131,7 +124,6 @@ public class Game extends BasicGameState {
 		chest[2].x = 1500;
 		chest[2].y = 400;
 
-
 		box = new Crate[20];
 		box[0] = new Crate();
 		box[0].x = 585;
@@ -143,19 +135,18 @@ public class Game extends BasicGameState {
 		box[2].x = 600;
 		box[2].y = 300;
 
-
 		notes = new Crate[10];
 		notes[0] = new Crate();
 		notes[0].x = 395;
 		notes[0].y = 365;
 		notes[1] = new Crate();
-		notes[1].x = 975; 
+		notes[1].x = 975;
 		notes[1].y = 428;
 		notes[2] = new Crate();
-		notes[2].x=2200;
+		notes[2].x = 2200;
 		notes[2].y = 100;
 		System.out.println("cus");
-		
+
 		coins = new Crate[20];
 		coins[0] = new Crate();
 		coins[0].x = 400;
@@ -167,24 +158,21 @@ public class Game extends BasicGameState {
 		coins[2].x = 350;
 		coins[2].y = 200;
 
-		
 		noteFind = new NoteThere[4];
-		noteFind[0] = new NoteThere(); 
+		noteFind[0] = new NoteThere();
 		noteFind[0].n = false;
-		noteFind[1] = new NoteThere(); 
-		noteFind[1].n=false;
-		noteFind[2] = new NoteThere(); 
-		noteFind[2].n=false;
-		
+		noteFind[1] = new NoteThere();
+		noteFind[1].n = false;
+		noteFind[2] = new NoteThere();
+		noteFind[2].n = false;
+
 		noteFind[0].c = false;
 		noteFind[1].c = false;
 		noteFind[2].c = false;
-		
 
 	}
 
-	public void update(GameContainer c, StateBasedGame game, int delta)
-			throws SlickException {
+	public void update(GameContainer c, StateBasedGame game, int delta) throws SlickException {
 		Input input = c.getInput();
 
 		if (ControlsOn == true) {
@@ -194,7 +182,7 @@ public class Game extends BasicGameState {
 					lodX = lodX - 1;
 					ipositionX = ipositionX - 1;
 					movementL = true;
-					//PlayerOx = (float) (PlayerOx + 0.05);
+					// PlayerOx = (float) (PlayerOx + 0.05);
 
 					if (ipositionX > lodX) {
 						game1X = game1X + 1;
@@ -205,9 +193,9 @@ public class Game extends BasicGameState {
 						for (int n = 0; n <= 2; n++) {
 
 							notes[n].x = notes[n].x + 1;
-							box[n].x = box[n].x +1;
+							box[n].x = box[n].x + 1;
 							chest[n].x = chest[n].x + 1;
-							coins[n].x = coins[n].x +1;
+							coins[n].x = coins[n].x + 1;
 						}
 						boxX = boxX + 1;
 					}
@@ -216,17 +204,16 @@ public class Game extends BasicGameState {
 					collision = true;
 
 				}
-				if(collisionx.isOxygen(ipositionX, ipositionY +14)){
+				if (collisionx.isOxygen(ipositionX, ipositionY + 14)) {
 					oxygen = true;
-					if(PlayerOx<100){
-						PlayerOx = PlayerOx+1;
+					if (PlayerOx < 100) {
+						PlayerOx = PlayerOx + 1;
 					}
-				}else{
+				} else {
 					oxygen = false;
 				}
-				
-				if (ipositionX == boxXposition + 29 && lodY >= boxY - 17
-						&& lodY <= boxY + 27) {
+
+				if (ipositionX == boxXposition + 29 && lodY >= boxY - 17 && lodY <= boxY + 27) {
 					boxX = boxX - 1;
 					posouvani = true;
 					boxXposition = boxXposition - 1;
@@ -236,14 +223,13 @@ public class Game extends BasicGameState {
 				}
 
 			}
-			if (input.isKeyDown(Input.KEY_D)
-					|| input.isKeyDown(Input.KEY_RIGHT)) {
+			if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
 				if (!collisionx.isOpaque((ipositionX + 49), ipositionY + 14)) {
 					lodX = lodX + 1;
 					ipositionX = ipositionX + 1;
 					movementL = false;
 					collision = false;
-					//PlayerOx = (float) (PlayerOx - 0.05);
+					// PlayerOx = (float) (PlayerOx - 0.05);
 					// boxXposition = boxXposition +1;
 					if (lodX > 250) {
 						game1X = game1X - 1;
@@ -253,7 +239,7 @@ public class Game extends BasicGameState {
 						for (int n = 0; n <= 2; n++) {
 
 							chest[n].x = chest[n].x - 1;
-							coins[n].x = coins[n].x -1;
+							coins[n].x = coins[n].x - 1;
 							box[n].x = box[n].x - 1;
 							notes[n].x = notes[n].x - 1;
 						}
@@ -262,18 +248,16 @@ public class Game extends BasicGameState {
 				if (collisionx.isHit(ipositionX + 49, ipositionY + 14)) {
 					collision = true;
 				}
-				if(collisionx.isOxygen(ipositionX+49, ipositionY +14)){
+				if (collisionx.isOxygen(ipositionX + 49, ipositionY + 14)) {
 					oxygen = true;
-					if(PlayerOx<100){
-						PlayerOx = PlayerOx+1;
+					if (PlayerOx < 100) {
+						PlayerOx = PlayerOx + 1;
 					}
-				}else{
+				} else {
 					oxygen = false;
 				}
-				
 
-				if (lodX == box[1].x - 50 && lodY >= box[1].x - 17
-						&& lodY <= box[1].y + 27) {
+				if (lodX == box[1].x - 50 && lodY >= box[1].x - 17 && lodY <= box[1].y + 27) {
 					box[1].x = box[1].x + 1;
 					posouvani = true;
 					boxXposition = boxXposition + 1;
@@ -299,26 +283,25 @@ public class Game extends BasicGameState {
 
 							box[n].y = box[n].y + 1;
 							notes[n].y = notes[n].y + 1;
-							coins[n].y = coins[n].y +1;
-							chest[n].y = chest[n].y +1;
+							coins[n].y = coins[n].y + 1;
+							chest[n].y = chest[n].y + 1;
 						}
 					}
 
 				}
-				if(collisionx.isOxygen(ipositionX+(49/2), ipositionY)){
+				if (collisionx.isOxygen(ipositionX + (49 / 2), ipositionY)) {
 					oxygen = true;
-					if(PlayerOx<100){
-						PlayerOx = PlayerOx+1;
+					if (PlayerOx < 100) {
+						PlayerOx = PlayerOx + 1;
 					}
-				}else{
+				} else {
 					oxygen = false;
 				}
 				if (collisionx.isHit(ipositionX + (49 / 2), ipositionY)) {
 					collision = true;
 				}
-				
-				if (ipositionY == boxYposition - 17 && lodX >= box[1].y - 29
-						&& lodX <= box[1].x - 50) {
+
+				if (ipositionY == boxYposition - 17 && lodX >= box[1].y - 29 && lodX <= box[1].x - 50) {
 					box[1].y = box[1].y - 1;
 					posouvani = true;
 					boxYposition = boxYposition - 1;
@@ -326,8 +309,7 @@ public class Game extends BasicGameState {
 				}
 			}
 			if (input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) {
-				if (!collisionx
-						.isOpaque(ipositionX + (49 / 2), ipositionY + 28)) {
+				if (!collisionx.isOpaque(ipositionX + (49 / 2), ipositionY + 28)) {
 					lodY = lodY + 1;
 					ipositionY = ipositionY + 1;
 					collision = false;
@@ -342,26 +324,25 @@ public class Game extends BasicGameState {
 							chest[n].y = chest[n].y - 1;
 
 							box[n].y = box[n].y - 1;
-							coins[n].y = coins[n].y -1;
+							coins[n].y = coins[n].y - 1;
 							notes[n].y = notes[n].y - 1;
-							chest[n].y = chest[n].y -1;
+							chest[n].y = chest[n].y - 1;
 						}
 
 					}
 				}
-				if(collisionx.isOxygen(ipositionX+(49/2), ipositionY+28)){
+				if (collisionx.isOxygen(ipositionX + (49 / 2), ipositionY + 28)) {
 					oxygen = true;
-					if(PlayerOx<100){
-						PlayerOx = PlayerOx+1;
+					if (PlayerOx < 100) {
+						PlayerOx = PlayerOx + 1;
 					}
-				}else{
+				} else {
 					oxygen = false;
 				}
 				if (collisionx.isHit(ipositionX + (49 / 2), ipositionY + 28)) {
 					collision = true;
 				}
 			}
-			
 
 			if (input.isKeyDown(Input.KEY_ENTER)) {
 				if (!collisionx.isOpaque(box[0].x, box[0].y + 27)) {
@@ -382,7 +363,8 @@ public class Game extends BasicGameState {
 		}
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 
-			optionsOn = true;
+			// optionsOn = true;
+			game.enterState(0);
 		}
 
 		if (input.isKeyDown(Input.KEY_Q)) {
@@ -390,84 +372,71 @@ public class Game extends BasicGameState {
 			ControlsOn = true;
 			optionsOn = false;
 		}
-		
+
 		if (life <= 0) {
 			ControlsOn = false;
 		}
-		// if(chest[1].x >= ){}
 		notes(c);
-		
-//		for(int i = 0; i<=11; i++){
-//			
-//			
-//			System.out.println(ballss.getImage(i));
-		//}
-		
+
 		PlayerOx = (float) (PlayerOx - 0.05);
-		
-	System.out.println(ipositionX+ "  " + ipositionY);
-		
+
+		System.out.println(ipositionX + "  " + ipositionY);
+
 	}
-	
-	void notes(GameContainer c){
- 
-		
-		
+
+	void notes(GameContainer c) {
+
 		Input input = c.getInput();
-		
-		if (input.isKeyDown(Input.KEY_TAB)) {
 
-			notesOn = true;
-			ControlsOn = false;
-		}
+		if (input.isKeyPressed(Input.KEY_TAB)) {
+			tab_pressed++;
 
-		if ((ipositionX >= 350 && ipositionX < 416)
-				&& (ipositionY >= 343 && ipositionY <= 379)) {
-			noteFind[0].n = true;
-			
-		}
-		
-		if ((ipositionX >= 930 && ipositionX < 996)//930, 996
-				&& (ipositionY >= 450 && ipositionY <= 486)) {//450, 486
-			noteFind[1].n=true;
-			
-			
+			if (tab_pressed == 1) {
+				notesOn = true;
+				ControlsOn = false;
+			} else {
+				tab_pressed = 0;
+				notesOn = false;
+				ControlsOn = true;
 			}
-		if ((ipositionX >= 2175 && ipositionX <2241 )
-				&& (ipositionY >= 78 && ipositionY <= 114)) {
-			noteFind[2].n=true;
-			
-			
-			}		
-		
-	
-		if (input.isKeyDown(Input.KEY_DOWN)){
-			activeButton = 1;}
-		
-		
-		
-	}
-	
-	void chest(GameContainer c){
-		
-		if ((ipositionX >= 100)
-				&& (ipositionY >= 100)) {
-			noteFind[0].c = true;
-			
 		}
-		
+
+		if ((ipositionX >= 350 && ipositionX < 416) && (ipositionY >= 343 && ipositionY <= 379)) {
+			noteFind[0].n = true;
+
+		}
+
+		if ((ipositionX >= 930 && ipositionX < 996) && (ipositionY >= 450 && ipositionY <= 486)) {
+			noteFind[1].n = true;
+
+		}
+		if ((ipositionX >= 2175 && ipositionX < 2241) && (ipositionY >= 78 && ipositionY <= 114)) {
+			noteFind[2].n = true;
+
+		}
+
+		if (input.isKeyDown(Input.KEY_DOWN)) {
+			activeButton = 1;
+		}
+
 	}
-	
-	
-	public void render(GameContainer c, StateBasedGame game, Graphics g)
-			throws SlickException {
+
+	void chest(GameContainer c) {
+
+		if ((ipositionX >= 100) && (ipositionY >= 100)) {
+			noteFind[0].c = true;
+
+		}
+
+	}
+
+	public void render(GameContainer c, StateBasedGame game, Graphics g) throws SlickException {
 		waterbackground.draw((float) (game1X - 0.5), (float) (game1Y - 0.5));
 		if (movementL == true) {
 
 			lodleft.draw(lodX, lodY);
 		}
 		if ((movementL == false)) {
-			
 
 			lod.draw(lodX, lodY);
 			if (collision == true) {
@@ -477,11 +446,10 @@ public class Game extends BasicGameState {
 
 		boxD.draw(box[0].x, box[0].y);
 
-		
 		ballss.draw(bubX, bubY);
-		ballss.draw(bubX+400, bubY+25);
+		ballss.draw(bubX + 400, bubY + 25);
 		game1.draw(game1X, game1Y);
-		
+
 		if (ipositionX >= 200 && ipositionY <= 300) {
 			g.drawString("chest", 300, 300);
 			if (gold <= 1) {
@@ -489,192 +457,185 @@ public class Game extends BasicGameState {
 				g.drawString("gold: " + (gold), 10, 150);
 			}
 		}
-//		if(noteFind[0].c = false){
-//		truhla.draw(chest[0].x, chest[0].y);
-//		}
-		notes(c,game,g);
-		 
+
+		notes(c, game, g);
+
 		spriteSheets(c, game, g);
-		
-		
+
 		g.drawString("oxygen: " + Math.round(PlayerOx), 10, 60);
 		g.drawString("life: " + Math.round(life), 10, 100);
-		// if(allnotesN == 1) {
-			//note12.draw();
 
-		//}
-		if(oxygen ==true){
-			g.drawString("jeeeej new oxygen", 10, 130);
+		if (oxygen == true) {
+			g.drawString("yeah new oxygen", 10, 130);
 		}
 
 		Input input = c.getInput();
-		
-		options(c,game,g);
-		deadScreen(c,game,g);
+
+		// options(c, game, g);
+		deadScreen(c, game, g);
 		animZacatek.draw();
-		if(noteFind[0].c == false){
+		if (noteFind[0].c == false) {
 			truhla.draw();
 		}
-		
 
 	}
-	
 
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
 		return 1;
 	}
-	
-	void spriteSheets(GameContainer c, StateBasedGame game, Graphics g){
 
-		if(life<=1000 && life>=900){
-			lifeBar.getSprite(0, 0).draw(10,120);
+	// handles animations
+	void spriteSheets(GameContainer c, StateBasedGame game, Graphics g) {
+
+		if (life <= 1000 && life >= 900) {
+			lifeBar.getSprite(0, 0).draw(10, 120);
 		}
-		if(life<900 && life>=800){
-			lifeBar.getSprite(0, 1).draw(10,120);
+		if (life < 900 && life >= 800) {
+			lifeBar.getSprite(0, 1).draw(10, 120);
 		}
-		if(life<800 && life>=700){
-			lifeBar.getSprite(0, 2).draw(10,120);
+		if (life < 800 && life >= 700) {
+			lifeBar.getSprite(0, 2).draw(10, 120);
 		}
-		if(life<700 && life>=600){
-			lifeBar.getSprite(0, 3).draw(10,120);
+		if (life < 700 && life >= 600) {
+			lifeBar.getSprite(0, 3).draw(10, 120);
 		}
-		if(life<600 && life>=500){
-			lifeBar.getSprite(0, 4).draw(10,120);
+		if (life < 600 && life >= 500) {
+			lifeBar.getSprite(0, 4).draw(10, 120);
 		}
-		if(life<500 && life>=400){
-			lifeBar.getSprite(0, 5).draw(10,120);
+		if (life < 500 && life >= 400) {
+			lifeBar.getSprite(0, 5).draw(10, 120);
 		}
-		if(life<400 && life>=300){
-			lifeBar.getSprite(0, 6).draw(10,120);
+		if (life < 400 && life >= 300) {
+			lifeBar.getSprite(0, 6).draw(10, 120);
 		}
-		if(life<300 && life>=200){
-			lifeBar.getSprite(0, 7).draw(10,120);
+		if (life < 300 && life >= 200) {
+			lifeBar.getSprite(0, 7).draw(10, 120);
 		}
-		if(life<200 && life>=100){
-			lifeBar.getSprite(0, 8).draw(10,120);
+		if (life < 200 && life >= 100) {
+			lifeBar.getSprite(0, 8).draw(10, 120);
 		}
-		if(life<100 && life>=0){
-			lifeBar.getSprite(0, 9).draw(10,120);
-		}
-		
-		
-		if(PlayerOx<=101 && PlayerOx>=90){
-			oxbar.getSprite(0, 0).draw(10,80);
-		}
-		if(PlayerOx<90 && PlayerOx>=80){
-			oxbar.getSprite(0, 1).draw(10,80);
-		}
-		if(PlayerOx<80 && PlayerOx>=70){
-			oxbar.getSprite(0, 2).draw(10,80);
-		}
-		if(PlayerOx<70 && PlayerOx>=60){
-			oxbar.getSprite(0, 3).draw(10,80);
-		}
-		if(PlayerOx<60 && PlayerOx>=50){
-			oxbar.getSprite(0, 4).draw(10,80);
-		}
-		if(PlayerOx<50 && PlayerOx>=40){
-			oxbar.getSprite(0, 5).draw(10,80);
-		}
-		if(PlayerOx<40 && PlayerOx>=30){
-			oxbar.getSprite(0, 6).draw(10,80);
-		}
-		if(PlayerOx<30 && PlayerOx>=20){
-			oxbar.getSprite(0, 7).draw(10,80);
-		}
-		if(PlayerOx<20 && PlayerOx>=10){
-			oxbar.getSprite(0, 8).draw(10,80);
-		}
-		if(PlayerOx<10 && PlayerOx>=0){
-			oxbar.getSprite(0, 9).draw(10,80);
+		if (life < 100 && life >= 0) {
+			lifeBar.getSprite(0, 9).draw(10, 120);
 		}
 
-	}
-	
-	void options(GameContainer c, StateBasedGame game, Graphics g){
-		
-		Input input = c.getInput();
-		
-		if (optionsOn == true) {
-			ControlsOn = false;
-			gameOptions.draw();
-			buttonReturn.draw(240, 200);
-			if (activeButton ==1) {
-				buttonReturnglow.draw(240, 200);
-				if(input.isKeyDown(Input.KEY_A)){
-					game.enterState(0);
-				}
-			
-			}
-
-		} else {
-			optionsOn = false;
+		if (PlayerOx <= 101 && PlayerOx >= 90) {
+			oxbar.getSprite(0, 0).draw(10, 80);
+		}
+		if (PlayerOx < 90 && PlayerOx >= 80) {
+			oxbar.getSprite(0, 1).draw(10, 80);
+		}
+		if (PlayerOx < 80 && PlayerOx >= 70) {
+			oxbar.getSprite(0, 2).draw(10, 80);
+		}
+		if (PlayerOx < 70 && PlayerOx >= 60) {
+			oxbar.getSprite(0, 3).draw(10, 80);
+		}
+		if (PlayerOx < 60 && PlayerOx >= 50) {
+			oxbar.getSprite(0, 4).draw(10, 80);
+		}
+		if (PlayerOx < 50 && PlayerOx >= 40) {
+			oxbar.getSprite(0, 5).draw(10, 80);
+		}
+		if (PlayerOx < 40 && PlayerOx >= 30) {
+			oxbar.getSprite(0, 6).draw(10, 80);
+		}
+		if (PlayerOx < 30 && PlayerOx >= 20) {
+			oxbar.getSprite(0, 7).draw(10, 80);
+		}
+		if (PlayerOx < 20 && PlayerOx >= 10) {
+			oxbar.getSprite(0, 8).draw(10, 80);
+		}
+		if (PlayerOx < 10 && PlayerOx >= 0) {
+			oxbar.getSprite(0, 9).draw(10, 80);
 		}
 
 	}
-	
-	void notes(GameContainer c, StateBasedGame game, Graphics g){
+
+	// not working options which would be displayed when ESC is hit
+	// void options(GameContainer c, StateBasedGame game, Graphics g) {
+	//
+	// Input input = c.getInput();
+	//
+	// if (optionsOn == true) {
+	// ControlsOn = false;
+	// gameOptions.draw();
+	// buttonReturn.draw(240, 200);
+	// if (activeButton == 1) {
+	// buttonReturnglow.draw(240, 200);
+	// if (input.isKeyDown(Input.KEY_ENTER)) {
+	// game.enterState(0);
+	// }
+	//
+	// }
+	//
+	// } else {
+	// optionsOn = false;
+	// }
+	//
+	// }
+
+	void notes(GameContainer c, StateBasedGame game, Graphics g) {
 		Input input = c.getInput();
-		if (noteFind[0].n==false) {
+		if (noteFind[0].n == false) {
 			notes1.draw(notes[0].x, notes[0].y);
-			
-		
-			}
-		if(noteFind[1].n==false){
+
+		}
+		if (noteFind[1].n == false) {
 			notes1.draw(notes[1].x, notes[1].y);
 		}
-		if(noteFind[2].n==false){
+		if (noteFind[2].n == false) {
 			notes1.draw(notes[2].x, notes[2].y);
 		}
-		
-		
+
 		if (notesOn == true) {
 			allnotes.draw();
-			if(noteFind[0].n ==true){
-					allnotesButton1.draw(150, 180);
-					g.drawString("note1",notes[0].x-100, notes[0].y-10);}
-				if(noteFind[1].n ==true){
-					allnotesButton1.draw(150, 230);
-				if(noteFind[2].n ==true){
-					allnotesButton1.draw(150, 280);}
+			if (noteFind[0].n == true) {
+				allnotesButton1.draw(150, 180);
+				g.drawString("note1", notes[0].x - 100, notes[0].y - 10);
 			}
-			
+			if (noteFind[1].n == true) {
+				allnotesButton1.draw(150, 230);
+				if (noteFind[2].n == true) {
+					allnotesButton1.draw(150, 280);
+				}
 			}
-		
+
 		}
-		
-	void deadScreen(GameContainer c, StateBasedGame game, Graphics g){
+
+	}
+
+	void deadScreen(GameContainer c, StateBasedGame game, Graphics g) {
 		Input input = c.getInput();
-		
+
 		if (life <= 0) {
 			dead.draw();
 			playAgain.draw(200, 240);
 			QuitGame.draw(350, 240);
 			if (activeButton == 0) {
 				playAgainglow.draw(200, 240);
-				if (input.isKeyDown(Input.KEY_A)) {
+				if (input.isKeyPressed(Input.KEY_ENTER)) {
 					restart();
 					game1.draw(game1X, game1Y);
 				}
 			}
-			if (input.isKeyDown(Input.KEY_LEFT)) {
+			if (input.isKeyPressed(Input.KEY_LEFT)) {
 				activeButton = 1;
 			}
 			if (activeButton == 1) {
 				playAgainglow.draw(200, 240);
-				if (input.isKeyDown(Input.KEY_A)) {
+				if (input.isKeyPressed(Input.KEY_ENTER)) {
 					restart();
 					game1.draw(game1X, game1Y);
 				}
 			}
-			if (input.isKeyDown(Input.KEY_RIGHT)) {
+			if (input.isKeyPressed(Input.KEY_RIGHT)) {
 				activeButton = 2;
 			}
 			if (activeButton == 2) {
 				QuitGameglow.draw(350, 240);
-				if (input.isKeyDown(Input.KEY_A)) {
+				if (input.isKeyPressed(Input.KEY_ENTER)) {
 					restart();
 					game.enterState(0);
 				}
